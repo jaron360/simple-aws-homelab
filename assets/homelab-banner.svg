@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="320" viewBox="0 0 1200 320" role="img" aria-label="Building a Homelab on AWS">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f1b2d"/>
+      <stop offset="0.55" stop-color="#152a45"/>
+      <stop offset="1" stop-color="#1b3a5f"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff9900"/>
+      <stop offset="1" stop-color="#ffb84d"/>
+    </linearGradient>
+    <linearGradient id="node" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a4a72"/>
+      <stop offset="1" stop-color="#1d3554"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- background -->
+  <rect width="1200" height="320" rx="20" fill="url(#bg)"/>
+
+  <!-- subtle grid -->
+  <g stroke="#26456b" stroke-width="1" opacity="0.35">
+    <path d="M0 80 H1200 M0 160 H1200 M0 240 H1200"/>
+    <path d="M150 0 V320 M300 0 V320 M450 0 V320 M600 0 V320 M750 0 V320 M900 0 V320 M1050 0 V320"/>
+  </g>
+
+  <!-- accent bar -->
+  <rect x="64" y="72" width="70" height="8" rx="4" fill="url(#accent)"/>
+
+  <!-- title -->
+  <text x="64" y="140" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="60" font-weight="700" fill="#ffffff">Building a Homelab</text>
+  <text x="64" y="205" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="60" font-weight="700" fill="#ffffff">on <tspan fill="url(#accent)">AWS</tspan></text>
+
+  <!-- subtitle -->
+  <text x="66" y="252" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="22" font-weight="400" fill="#9fb6d4">Account &#8594; VPC &#8594; EC2 &#8594; connect &#8594; expand</text>
+
+  <!-- illustration: cloud over a small network of nodes -->
+  <g transform="translate(890,60)" filter="url(#soft)">
+    <!-- cloud -->
+    <g fill="url(#accent)">
+      <circle cx="120" cy="70" r="38"/>
+      <circle cx="72" cy="86" r="30"/>
+      <circle cx="172" cy="86" r="30"/>
+      <rect x="72" y="78" width="100" height="40" rx="20"/>
+    </g>
+    <!-- connection lines -->
+    <g stroke="#ff9900" stroke-width="3" opacity="0.8">
+      <path d="M120 118 V150" />
+      <path d="M120 150 H60 V178" />
+      <path d="M120 150 H180 V178" />
+      <path d="M120 150 V178" />
+    </g>
+    <!-- server nodes -->
+    <g>
+      <rect x="34" y="178" width="52" height="56" rx="8" fill="url(#node)" stroke="#3f6699" stroke-width="2"/>
+      <rect x="94" y="178" width="52" height="56" rx="8" fill="url(#node)" stroke="#3f6699" stroke-width="2"/>
+      <rect x="154" y="178" width="52" height="56" rx="8" fill="url(#node)" stroke="#3f6699" stroke-width="2"/>
+      <!-- node status lights -->
+      <circle cx="46" cy="190" r="4" fill="#4ade80"/>
+      <circle cx="106" cy="190" r="4" fill="#4ade80"/>
+      <circle cx="166" cy="190" r="4" fill="#4ade80"/>
+      <!-- node slots -->
+      <g stroke="#5a83b5" stroke-width="2" opacity="0.7">
+        <path d="M42 206 H78 M42 216 H78 M42 226 H70"/>
+        <path d="M102 206 H138 M102 216 H138 M102 226 H130"/>
+        <path d="M162 206 H198 M162 216 H198 M162 226 H190"/>
+      </g>
+    </g>
+  </g>
+</svg>
