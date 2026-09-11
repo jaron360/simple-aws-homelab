@@ -648,6 +648,44 @@ Then browse to `http://localhost:3000`. The traffic rides inside the encrypted S
 session, so the service stays private and there is still only one open port (22). Add
 more `-L` flags for more services.
 
+### Turn it into a cybersecurity lab
+
+The same box makes a solid security-practice environment: run intentionally vulnerable
+apps in Docker and attack them from tooling on the instance. The one rule is to **keep
+the vulnerable apps off the internet** — bind them to loopback and reach them over the
+SSH tunnel above, never by opening their ports in the security group. A deliberately
+weak app exposed publicly is found and compromised by scanners within hours.
+
+Short example — OWASP Juice Shop as a target, bound to localhost only:
+
+```bash
+# On the instance (Docker installed as above). The 127.0.0.1: prefix is the
+# control: it stops Docker from publishing the port to the internet.
+docker run -d --name juiceshop -p 127.0.0.1:3000:3000 bkimminich/juice-shop
+```
+
+```bash
+# From your laptop: tunnel it in, then browse to http://localhost:3000
+ssh -N -L 3000:localhost:3000 homelab
+```
+
+Add attacker tooling in its own container and point it only at your own target:
+
+```bash
+# On the instance
+docker run -dit --name kali --network host kalilinux/kali-rolling /bin/bash
+docker exec -it kali /bin/bash
+# inside: apt update && apt install -y nmap nikto sqlmap
+nikto -h http://localhost:3000
+```
+
+From there you can add more targets (DVWA, WebGoat), a scoreboard of challenges, and
+write-ups of each finding. Only ever attack targets you own on this instance — scanning
+systems you do not control is illegal, and AWS has its own
+[penetration testing rules](https://aws.amazon.com/security/penetration-testing/) that
+forbid pointing tools at AWS infrastructure. Treat the instance as expendable and keep
+nothing sensitive on it.
+
 ### Explore other AWS building blocks
 
 - **S3** — object storage for backups, static files, or a static website.
